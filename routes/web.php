@@ -41,6 +41,8 @@ Route::middleware(['isLogin'])->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
         Route::patch('/update/{id}', [ProductController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [ProductController::class, 'destroy'])->name('delete');
+
+        Route::get('/export', [ProductController::class, 'exportExcel'])->name('exportProduct');
     });
 
     Route::prefix('users')->name('users.')->group(function () {
@@ -50,17 +52,19 @@ Route::middleware(['isLogin'])->group(function () {
         Route::get('/edit/{id}', [UserController::class,'edit'])->name('edit');
         Route::patch('/update/{id}', [UserController::class,'update'])->name('update');
         Route::delete('/delete/{id}', [UserController::class,'destroy'])->name('delete');
+
+        Route::get('/export', [UserController::class, 'exportExcel'])->name('exportUser');
     });
 
-    // Route::prefix('sales')->name('sales.')->group(function () {
-    //     Route::get('/', [SaleController::class, 'index'])->name('index');
-    //     Route::get('/product-sale', [SaleController::class, 'productSale'])->name('productSale');
-    //     Route::post('/checkout', [SaleController::class, 'checkout'])->name('checkout');
-    //     Route::post('/payment-transaction', [SaleController::class, 'paymentTransaction'])->name('payment');
-    //     Route::post('/member-transaction', [SaleController::class, 'memberTransaction'])->name('memberpayment');
-    //     Route::get('/receipt/{id}', [SaleController::class, 'showReceipt'])->name('receipt');
-    //     // file
-    //     Route::post('/invoice/{id}', [SaleController::class, 'printPDF'])->name('invoice');
-    //     Route::get('/export', [SaleController::class, 'exportExcel'])->name('exportInvoice');
-    // });
+    Route::prefix('sales')->name('sales.')->group(function () {
+        Route::get('/', [SaleController::class, 'index'])->name('index');
+        Route::get('/product-sale', [SaleController::class, 'productSale'])->name('productSale');
+        Route::post('/checkout', [SaleController::class, 'checkout'])->name('checkout');
+        Route::post('/payment-transaction', [SaleController::class, 'paymentTransaction'])->name('payment');
+        Route::post('/member-transaction', [SaleController::class, 'memberTransaction'])->name('memberpayment');
+        Route::get('/receipt/{id}', [SaleController::class, 'showReceipt'])->name('receipt');
+        
+        Route::post('/invoice/{id}', [SaleController::class, 'printPDF'])->name('invoice');
+        Route::get('/export', [SaleController::class, 'exportExcel'])->name('exportInvoice');
+    });
 });

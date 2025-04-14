@@ -127,10 +127,10 @@ select:focus {
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column justify-content-between vh-100 p-3">
         <div>
-            <div class="brand">YourApp</div>
+            <div class="brand">MyApp</div>
             <a href="{{ route('dashboard.index') }}" class="nav-link" data-page="dashboard"><i class="bi bi-grid"></i> Dashboard</a>
             <a href="{{ route('products.index') }}" class="nav-link" data-page="produk"><i class="bi bi-shop"></i> Produk</a>
-            <a href="#" class="nav-link" data-page="penjualan"><i class="bi bi-cart"></i> Penjualan</a>
+            <a href="{{ route('sales.index') }}" class="nav-link" data-page="penjualan"><i class="bi bi-cart"></i> Penjualan</a>
             @if (Auth::user()->role === 'admin')
                 <a href="{{ route('users.index') }}" class="nav-link" data-page="user"><i class="bi bi-person"></i> User</a>
             @endif

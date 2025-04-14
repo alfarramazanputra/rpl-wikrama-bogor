@@ -37,7 +37,7 @@
             <div class="card-body">
                 <p class="text-muted">Total Penjualan Hari Ini</p>
                 <h2 class="fw-bold text-dark my-3">
-                    today_sale
+                    {{ $today_sale }}
                 </h2>
                 <p class="small text-muted">Jumlah total penjualan yang terjadi hari ini.</p>
             </div>
@@ -45,7 +45,7 @@
     @endif
 
     <!-- Chart.js -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const salesChart = new Chart(document.getElementById('salesChart'), {
             type: 'bar',
@@ -82,5 +82,5 @@
                 responsive: false
             }
         });
-    </script> --}}
+    </script>
 @endsection

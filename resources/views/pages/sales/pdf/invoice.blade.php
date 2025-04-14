@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice #saleid</title>
+    <title>Invoice #{{ $saleData['sale_id'] }}</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -83,20 +83,20 @@
 <body>
 
     <div class="header">
-        <h1>Invoice #datasaleid</h1>
-        <p>Tanggal: date</p>
+        <h1>Invoice #{{ $saleData['sale_id'] }}</h1>
+        <p>Tanggal: {{ \Carbon\Carbon::parse($saleData['date'])->format('d-m-Y H:i') }}</p>
     </div>
 
     <div class="info">
         <strong>Data Pelanggan:</strong>
-        
-            <p>Nama Member: <strong>membername</strong></p>
-            <p>No. HP: memberphone</p>
-            <p>Bergabung Sejak: date</p>
-            <p>Sisa Poin Saat Ini: poin</p>
-        
+        @if ($saleData['member_id'])
+            <p>Nama Member: <strong>{{ $saleData['member_name'] }}</strong></p>
+            <p>No. HP: {{ $saleData['member_phone'] }}</p>
+            <p>Bergabung Sejak: {{ \Carbon\Carbon::parse($saleData['member_date'])->format('d-m-Y') }}</p>
+            <p>Sisa Poin Saat Ini: {{ $saleData['member_point'] }}</p>
+        @else
             <p><em>Pembeli bukan member.</em></p>
-        
+        @endif
     </div>
 
     <table>
@@ -109,50 +109,50 @@
             </tr>
         </thead>
         <tbody>
-            
+            @foreach ($saleData['products'] as $item)
                 <tr>
-                    <td>productname</td>
-                    <td>Rp price</td>
-                    <td>qty</td>
-                    <td>Rp priceqty</td>
+                    <td>{{ $item['product_name'] }}</td>
+                    <td>Rp {{ number_format($item['price'], 0, ',', '.') }}</td>
+                    <td>{{ $item['qty'] }}</td>
+                    <td>Rp {{ number_format($item['price'] * $item['qty'], 0, ',', '.') }}</td>
                 </tr>
-            
+            @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="3">Poin Digunakan</td>
-                <td>pointused</td>
+                <td>{{ $saleData['point_used'] }}</td>
             </tr>
             <tr>
                 <td colspan="3">Tunai Dibayar</td>
-                <td>Rp amountpaid</td>
+                <td>Rp {{ number_format($saleData['amount_paid'], 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <td colspan="3">Kembalian</td>
-                <td>Rp change</td>
+                <td>Rp {{ number_format($saleData['change'], 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <td colspan="3">Sub Total</td>
-                <td><del>Rp subtotal</del></td>
+                <td><del>Rp {{ number_format($saleData['sub_total'], 0, ',', '.') }}</del></td>
             </tr>
             <tr>
                 <td colspan="3">Total Bayar</td>
-                <td><strong>Rp total</strong></td>
+                <td><strong>Rp {{ number_format($saleData['total'], 0, ',', '.') }}</strong></td>
             </tr>
         </tfoot>
     </table>
 
     <div class="highlight">
-        <p>Terima kasih telah berbelanja di <strong>rjmNms</strong>.</p>
+        <p>Terima kasih telah berbelanja di <strong>StockX</strong>.</p>
         <p>Semoga hari Anda menyenangkan!</p>
     </div>
 
     <hr>
 
     <div class="footer">
-        rjmNms <br>
+        StockX <br>
         Jl. Raya Cisarua, Bogor <br>
-        Email: <a href="mailto:rjmnms@gmail.com">rjmnms@gmail.com</a>
+        Email: <a href="#">stockx@gmail.com</a>
     </div>
 
 </body>

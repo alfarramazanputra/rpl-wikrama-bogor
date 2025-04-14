@@ -4,7 +4,7 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('users.index') }}">User</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tambah</li>
         </ol>

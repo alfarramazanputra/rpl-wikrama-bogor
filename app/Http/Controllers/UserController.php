@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Exports\UserExports;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -98,5 +100,10 @@ class UserController extends Controller
     {
         User::where('id', $id)->delete();
         return redirect()->back()->with('success','Berhasil Menghapus Data User');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new UserExports(), 'users_report.xlsx');
     }
 }

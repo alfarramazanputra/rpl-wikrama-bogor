@@ -14,15 +14,16 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Produk</li>
         </ol>
     </nav>
+    <h1 class="h4 mb-4">Product</h1>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h4">Produk</h1>
+    <div class="mb-3 text-end">
         @if (Auth::user()->role === 'admin')
-            <a href="{{ route('products.create') }}" class="btn btn-primary">+ Tambah Produk</a>
+            <a href="{{ route('products.create') }}" class="btn btn-primary">+ Tambah Produk</a>  
+            <a href="{{ route('products.exportProduct') }}" class="btn btn-success text-white">Export</a>
         @endif
     </div>
 

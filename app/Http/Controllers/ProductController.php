@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Exports\ProductExports;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -118,5 +120,10 @@ class ProductController extends Controller
         Product::where('id', $id)->delete();
 
         return redirect()->back()->with('success','Berhasil Menghapus Data Produk!');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ProductExports(), 'product_report.xlsx');
     }
 }

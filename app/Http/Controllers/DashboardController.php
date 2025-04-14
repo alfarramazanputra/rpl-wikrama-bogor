@@ -11,27 +11,47 @@ class DashboardController extends Controller
     public function index()
     {
         $bar_data = DB::table('sales')
-        ->selectRaw('date, COUNT(*) as total_sales')
-        ->groupBy('date')
-        ->orderBy('date', 'ASC')
-        ->get();
+            ->selectRaw('date, COUNT(*) as total_sales')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC')
+            ->get();
 
-       $dates = $bar_data->pluck('date');
-       $totals = $bar_data->pluck('total_sales');
+        $dates = $bar_data->pluck('date');
+        $totals = $bar_data->pluck('total_sales');
 
-       $pie_data = DB::table('sale_details as sd')
-           ->join('products as p', 'sd.product_id', '=', 'p.id')
-           ->selectRaw('p.name, SUM(sd.product_qty) as total_sold')
-           ->groupBy('p.name')
-           ->get();
+        $pie_data = DB::table('sale_details as sd')
+            ->join('products as p', 'sd.product_id', '=', 'p.id')
+            ->selectRaw('p.name, SUM(sd.product_qty) as total_sold')
+            ->groupBy('p.name')
+            ->get();
 
-       $product_name = $pie_data->pluck('name');
-       $product_qty = $pie_data->pluck('total_sold');
+        $product_name = $pie_data->pluck('name');
+        $product_qty = $pie_data->pluck('total_sold');
 
-       $today_sale = DB::table('sales as s')
-           ->where('s.date', '=', Carbon::today())
-           ->count();
+        $today = Carbon::today();
 
-       return view('pages.dashboard', compact('dates', 'totals', 'product_name', 'product_qty', 'today_sale'));
+        $today_sale = DB::table('sales')
+            ->whereDate('date', $today)
+            ->count();
+
+        $member_sale = DB::table('sales')
+            ->whereDate('date', $today)
+            ->whereNotNull('member_id')
+            ->count();
+
+        $non_member_sale = DB::table('sales')
+            ->whereDate('date', $today)
+            ->whereNull('member_id')
+            ->count();
+
+        return view('pages.dashboard', compact(
+            'dates',
+            'totals',
+            'product_name',
+            'product_qty',
+            'today_sale',
+            'member_sale',
+            'non_member_sale'
+        ));
     }
 }

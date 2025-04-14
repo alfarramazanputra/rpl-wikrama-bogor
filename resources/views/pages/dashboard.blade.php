@@ -33,15 +33,32 @@
         </div>
     @else
         <!-- Untuk Petugas -->
+        <!-- Total Transaksi Hari Ini -->
         <div class="card text-center shadow-sm">
             <div class="card-body">
-                <p class="text-muted">Total Penjualan Hari Ini</p>
-                <h2 class="fw-bold text-dark my-3">
-                    {{ $today_sale }}
-                </h2>
-                <p class="small text-muted">Jumlah total penjualan yang terjadi hari ini.</p>
+                <p class="text-muted">Total Transaksi Hari Ini</p>
+                <h2 class="fw-bold text-dark my-3">{{ $today_sale }}</h2>
+                <p class="small text-muted">Jumlah transaksi yang terjadi hari ini.</p>
             </div>
         </div>
+
+        <!-- Transaksi Member -->
+        <div class="card text-center shadow-sm mt-3">
+            <div class="card-body">
+                <p class="text-muted">Transaksi Member</p>
+                <h2 class="fw-bold text-dark my-3">{{ $member_sale }}</h2>
+                <p class="small text-muted">Jumlah transaksi oleh member hari ini.</p>
+            </div>
+        </div>
+
+        <!-- Transaksi Non-Member -->
+        <div class="card text-center shadow-sm mt-3">
+            <div class="card-body">
+                <p class="text-muted">Transaksi Non-Member</p>
+                <h2 class="fw-bold text-dark my-3">{{ $non_member_sale }}</h2>
+                <p class="small text-muted">Jumlah transaksi oleh non-member hari ini.</p>
+            </div>
+        </div>  
     @endif
 
     <!-- Chart.js -->
